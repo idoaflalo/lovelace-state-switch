@@ -121,7 +121,9 @@ class StateSwitch extends LitElement {
         transition-delay: ${this._config.transition_time || 500}ms;
         "
     >
-      ${Object.keys(this.cards).map((k) =>
+      ${Object.keys(this.cards).filter(k => {
+        return this.cards[k].classList.contains("visible");
+      }).map((k) =>
         html`
           ${this.cards[k]}
         `)}
