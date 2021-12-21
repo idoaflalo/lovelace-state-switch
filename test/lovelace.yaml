@@ -1,0 +1,56 @@
+title: state-switch
+views:
+  - !include views/1-standard.yaml
+  - !include views/2-transitions.yaml
+  - title: test
+    cards:
+      - type: entities
+        entities:
+          - light.bed_light
+          - light.kitchen_lights
+      - type: horizontal-stack
+        cards:
+          - type: button
+            icon: mdi:numeric-1
+            tap_action:
+              action: navigate
+              navigation_path: "#1"
+          - type: button
+            icon: mdi:numeric-2
+            tap_action:
+              action: navigate
+              navigation_path: "#2"
+      - type: custom:state-switch
+        entity: hash
+        transition: flip
+        states:
+          "1":
+            type: entities
+            entities:
+              - light.bed_light
+          "2":
+            type: entities
+            entities:
+              - light.kitchen_lights
+
+      - type: custom:state-switch
+        entity: light.bed_light
+        states:
+          "on":
+            type: vertical-stack
+            cards:
+              - type: markdown
+                content: "ON"
+      - type: entities
+        entities:
+          - light.bed_light
+      - type: custom:state-switch
+        entity: deviceID
+        default: default
+        states:
+          "c6f98e11-37f45470":
+            type: markdown
+            content: match
+          "default":
+            type: markdown
+            content: unknown
